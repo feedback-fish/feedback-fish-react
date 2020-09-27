@@ -16,11 +16,18 @@
     "build": "microbundle",
     "dev": "microbundle watch"
   },
+  "dependencies": {},
   "devDependencies": {
+    "husky": "^4.3.0",
     "microbundle": "^0.12.3",
+    "prettier": "2.1.2",
+    "pretty-quick": "^3.0.2",
     "react": "^16.8.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
+  },
+  "engines": {
+    "node": ">=10.16.0"
   }
 }
