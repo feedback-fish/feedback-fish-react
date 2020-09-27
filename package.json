@@ -16,11 +16,16 @@
     "build": "microbundle",
     "dev": "microbundle watch"
   },
+  "dependencies": {},
   "devDependencies": {
     "microbundle": "^0.12.3",
+    "prettier": "2.1.2",
     "react": "^16.8.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
+  },
+  "engines": {
+    "node": ">=10.16.0"
   }
 }
