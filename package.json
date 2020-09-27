@@ -1,0 +1,26 @@
+{
+  "name": "@feedback-fish/react",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Embed the Feedback Fish widget into your React app to collect user feedback.",
+  "homepage": "https://feedback.fish",
+  "bugs": "https://github.com/ruendchengang/feedback-fish-react/issues",
+  "repository": "https://github.com/ruendchengang/feedback-fish-react",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "main": "dist/feedback-fish.js",
+  "module": "dist/feedback-fish.module.js",
+  "unpkg": "dist/feedback-fish.umd.js",
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "microbundle",
+    "dev": "microbundle watch"
+  },
+  "devDependencies": {
+    "microbundle": "^0.12.3",
+    "react": "^16.8.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  }
+}
