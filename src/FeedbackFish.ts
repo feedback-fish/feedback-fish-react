@@ -1,12 +1,12 @@
-import { useEffect } from "react"
+import { FunctionComponent } from "react"
 
-export const FeedbackFish = ({ projectId }: { projectId: string }) => {
-  useEffect(() => {
-    const ffScript = document.createElement("script")
-    ffScript.setAttribute("src", `https://feedback.fish/ff.js?pid=${projectId}`)
-    ffScript.defer = true
-    document.body.appendChild(ffScript)
-  }, [])
+import { useFeedbackFish } from "./useFeedbackFish"
+
+type Props = {
+  projectId: Parameters<typeof useFeedbackFish>[0]
+}
+export const FeedbackFish: FunctionComponent<Props> = ({ projectId }) => {
+  useFeedbackFish(projectId)
 
   return null
 }
