@@ -1,26 +1,32 @@
-import React from "react"
-import { render, cleanup } from "@testing-library/react"
-import "@testing-library/jest-dom/extend-expect"
+import { render, screen } from "@testing-library/react"
+import * as React from "react"
+
 import { FeedbackFish } from "../"
 
-afterEach(cleanup)
+const defaultChild = <button>Send feedback</button>
+
+const renderFeedbackFish = (propsOverwrite = {}) => {
+  const props = {
+    children: defaultChild,
+    projectId: "bla",
+    ...propsOverwrite,
+  }
+
+  return render(<FeedbackFish {...props} />)
+}
+const getButton = () => screen.getByRole("button", { name: /send feedback/i })
 
 it(`injects the feedback fish script tag`, () => {
-  const { baseElement } = render(
-    <FeedbackFish projectId="bla">
-      <a href="https://feedback.fish/feedback?pid=bla">Send feedback</a>
-    </FeedbackFish>
-  )
+  const { baseElement } = renderFeedbackFish({ projectId: "bla" })
 
   expect(baseElement).toMatchInlineSnapshot(`
     <body>
       <div>
-        <a
+        <button
           data-feedback-fish="true"
-          href="https://feedback.fish/feedback?pid=bla"
         >
           Send feedback
-        </a>
+        </button>
       </div>
       <script
         defer=""
@@ -31,84 +37,34 @@ it(`injects the feedback fish script tag`, () => {
 })
 
 it(`handles a single element as a child`, () => {
-  const { container } = render(
-    <FeedbackFish projectId="bla">
-      <a href="https://feedback.fish/feedback?pid=bla">Send feedback</a>
-    </FeedbackFish>
-  )
+  renderFeedbackFish({ children: <button>Send feedback</button> })
 
-  expect(container).toMatchInlineSnapshot(`
-    <div>
-      <a
-        data-feedback-fish="true"
-        href="https://feedback.fish/feedback?pid=bla"
-      >
-        Send feedback
-      </a>
-    </div>
-  `)
+  const button = screen.getByRole("button", { name: /send feedback/i })
+  expect(button).toHaveAttribute("data-feedback-fish", "true")
 })
 
 it(`handles a function as a child`, () => {
-  const { container } = render(
-    <FeedbackFish projectId="bla">
-      {(props) => (
-        <a {...props} href="https://feedback.fish/feedback?pid=bla">
-          Send feedback
-        </a>
-      )}
-    </FeedbackFish>
-  )
+  renderFeedbackFish({
+    children: (props) => <button {...props}>Send feedback</button>,
+  })
 
-  expect(container).toMatchInlineSnapshot(`
-    <div>
-      <a
-        data-feedback-fish="true"
-        href="https://feedback.fish/feedback?pid=bla"
-      >
-        Send feedback
-      </a>
-    </div>
-  `)
+  const button = screen.getByRole("button", { name: /send feedback/i })
+  expect(button).toHaveAttribute("data-feedback-fish", "true")
 })
 
 it(`handles userid`, () => {
-  const { container, baseElement } = render(
-    <FeedbackFish projectId="bla" userId="my-user-id">
-      <a href="https://feedback.fish/feedback?pid=bla">Send feedback</a>
-    </FeedbackFish>
-  )
+  renderFeedbackFish({ userId: "my-user-id" })
 
-  expect(container).toMatchInlineSnapshot(`
-    <div>
-      <a
-        data-feedback-fish="true"
-        data-feedback-fish-userid="my-user-id"
-        href="https://feedback.fish/feedback?pid=bla"
-      >
-        Send feedback
-      </a>
-    </div>
-  `)
+  const button = getButton()
+  expect(button).toHaveAttribute("data-feedback-fish", "true")
+  expect(button).toHaveAttribute("data-feedback-fish-userid", "my-user-id")
 })
 
 it(`handles metadata`, () => {
-  const { container } = render(
-    <FeedbackFish projectId="bla" metadata={{ email: "bla", website: "asdf" }}>
-      <a href="https://feedback.fish/feedback?pid=bla">Send feedback</a>
-    </FeedbackFish>
-  )
+  renderFeedbackFish({ metadata: { email: "bla", website: "asdf" } })
 
-  expect(container).toMatchInlineSnapshot(`
-    <div>
-      <a
-        data-feedback-fish="true"
-        data-feedback-fish-email="bla"
-        data-feedback-fish-website="asdf"
-        href="https://feedback.fish/feedback?pid=bla"
-      >
-        Send feedback
-      </a>
-    </div>
-  `)
+  const button = getButton()
+  expect(button).toHaveAttribute("data-feedback-fish", "true")
+  expect(button).toHaveAttribute("data-feedback-fish-email", "bla")
+  expect(button).toHaveAttribute("data-feedback-fish-website", "asdf")
 })
