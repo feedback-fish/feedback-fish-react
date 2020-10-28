@@ -2,8 +2,18 @@ import { useEffect } from "react"
 
 export const useFeedbackFish = (projectId: string) =>
   useEffect(() => {
-    const ffScript = document.createElement("script")
-    ffScript.setAttribute("src", `https://feedback.fish/ff.js?pid=${projectId}`)
-    ffScript.defer = true
-    document.body.appendChild(ffScript)
+    const script = document.createElement("script")
+    script.src = `https://feedback.fish/ff.js?pid=${projectId}`
+    script.defer = true
+
+    const onScriptError = () => script.remove()
+    script.addEventListener("error", onScriptError)
+
+    document.body.appendChild(script)
+
+    return () => {
+      script.removeEventListener("error", onScriptError)
+
+      script.remove()
+    }
   }, [])
