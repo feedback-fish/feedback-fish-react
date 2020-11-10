@@ -7,6 +7,7 @@
   "bugs": "https://github.com/ruendchengang/feedback-fish-react/issues",
   "repository": "https://github.com/ruendchengang/feedback-fish-react",
   "license": "MIT",
+  "types": "dist/index.d.ts",
   "source": "src/index.ts",
   "main": "dist/feedback-fish.js",
   "module": "dist/feedback-fish.module.js",
