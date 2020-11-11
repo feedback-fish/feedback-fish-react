@@ -1,6 +1,6 @@
 {
   "name": "@feedback-fish/react",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": false,
   "description": "Embed the Feedback Fish widget into your React app to collect user feedback.",
   "homepage": "https://feedback.fish",
