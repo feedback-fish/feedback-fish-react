@@ -1,17 +1,17 @@
-import React, { FunctionComponent, ReactElement } from "react"
+import React, { FunctionComponent, ReactNode } from "react"
 
 import { useFeedbackFish } from "./useFeedbackFish"
 
 type Props = {
   projectId: Parameters<typeof useFeedbackFish>[0]
-  children?: ReactElement | ((props: object) => ReactElement)
+  children?: ReactNode | ((props: object) => ReactNode)
   userId?: string
   metadata?: {
     [key: string]: string
   }
 }
 
-export const FeedbackFish: FunctionComponent<Props> = (props) => {
+export const FeedbackFish: FunctionComponent<Props> = (props: Props) => {
   useFeedbackFish(props.projectId)
 
   if (!props.children) return null
