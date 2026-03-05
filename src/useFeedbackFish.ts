@@ -16,3 +16,4 @@ export const useFeedbackFish = (projectId: string) =>
 
     document.body.appendChild(script)
   }, [])
+
